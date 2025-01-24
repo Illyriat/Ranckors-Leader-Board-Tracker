@@ -1,0 +1,8 @@
+## Title: RanckorsLeaderBoardTracker
+## APIVersion: 101043 101044 101045
+## Description: Displays home campaign and point differences.
+## Author: |c4B8BFERanckor90|r
+## Version: 1.0
+## SavedVariables: RanckorsLeaderBoardTrackerSavedVariables
+
+RanckorsLeaderBoardTracker.lua
