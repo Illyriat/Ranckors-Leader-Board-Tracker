@@ -96,18 +96,21 @@ function RanckorsLeaderBoardTracker:FetchLeaderboardData()
     d("|c00FF00Home Campaign: " .. homeCampaignName .. ", Alliance: " .. allianceName .. "|r")
 
     -- Fetch Emperor Info
-    local emperorAlliance, emperorName, reignDurationSeconds = GetCampaignEmperorInfo(homeCampaignId)
+    local emperorAlliance, emperorName = GetCampaignEmperorInfo(homeCampaignId)
     local emperorAllianceName = GetAllianceName(emperorAlliance)
 
     if emperorName and emperorName ~= "" then
         d("|c00FF00Current Emperor: " .. emperorName .. " (" .. emperorAllianceName .. ")|r")
 
-        -- Display Emperor reign duration if available
+        -- Fetch the correct reign duration
+        local reignDurationSeconds = GetCampaignEmperorReignDuration(homeCampaignId)
+
+        -- Ensure reignDurationSeconds is valid
         if reignDurationSeconds and reignDurationSeconds > 0 then
             local formattedDuration = FormatReignDuration(reignDurationSeconds)
             d("|c00FF00Emperor Reign Duration: " .. formattedDuration .. "|r")
         else
-            d("|cFF0000Reign duration data unavailable.|r")
+            d("|cFF0000Error: Reign duration data unavailable.|r")
         end
     else
         d("|cFF0000No Emperor currently assigned.|r")
@@ -138,8 +141,8 @@ function RanckorsLeaderBoardTracker:FetchLeaderboardData()
             potentialPoints = 0
         end
 
-        d("|c00FF00" .. allianceName .. " Points: " .. currentPoints .. "|r")
-        d("|c00FF00" .. allianceName .. " Estimated Potential Points: " .. potentialPoints .. "|r")
+        -- d("|c00FF00" .. allianceName .. " Points: " .. currentPoints .. "|r")
+        -- d("|c00FF00" .. allianceName .. " Estimated Potential Points: " .. potentialPoints .. "|r")
     end
 
     -- Query the leaderboard
@@ -152,35 +155,41 @@ function RanckorsLeaderBoardTracker:FetchLeaderboardData()
     end, 5000)
 end
 
--- Helper function to calculate potential points
-    function RanckorsLeaderBoardTracker:CalculatePotentialPoints(allianceIndex, campaignId)
-        -- Fetch current points
-        local currentPoints = GetCampaignAllianceScore(campaignId, allianceIndex)
-        if not currentPoints then
-            d("|cFF0000Error: Unable to fetch current points for Alliance " .. allianceIndex .. ".|r")
-            currentPoints = 0
+
+-- Helper function to add commas to numbers
+    local function FormatNumberWithCommas(number)
+        local formatted = tostring(number)
+        while true do
+            formatted, count = formatted:gsub("^(%d+)(%d%d%d)", "%1,%2")
+            if count == 0 then break end
         end
-    
-        -- Fetch potential score
-        local potentialPoints = GetCampaignAlliancePotentialScore(campaignId, allianceIndex)
-        if not potentialPoints then
-            d("|cFF0000Error: Unable to fetch potential score for Alliance " .. allianceIndex .. ".|r")
-            potentialPoints = 0
-        end
-        
-        --
-        --
-        -- Debug: Log raw data for verification
-        -- d("|c00FF00Debug: Current Points = " .. currentPoints .. ", Potential Points = " .. potentialPoints .. "|r")
-        --
-        --
-    
-        -- Return potential points calculation
-        return potentialPoints
+        return formatted
     end
-    
 
+-- Helper function to calculate potential points
+function RanckorsLeaderBoardTracker:CalculatePotentialPoints(allianceIndex, campaignId)
+    -- Fetch current points
+    local currentPoints = GetCampaignAllianceScore(campaignId, allianceIndex)
+    if not currentPoints then
+        d("|cFF0000Error: Unable to fetch current points for Alliance " .. allianceIndex .. ".|r")
+        currentPoints = 0
+    end
 
+    -- Fetch potential score
+    local potentialPoints = GetCampaignAlliancePotentialScore(campaignId, allianceIndex)
+    if not potentialPoints then
+        d("|cFF0000Error: Unable to fetch potential score for Alliance " .. allianceIndex .. ".|r")
+        potentialPoints = 0
+    end
+
+    -- Combine both scores into a single string and display it
+    local allianceName = GetAllianceName(allianceIndex)
+    d("|c00FF00" .. allianceName .. ": " .. FormatNumberWithCommas(currentPoints) .. 
+      " Points, " .. FormatNumberWithCommas(potentialPoints) .. " Potential Points|r")
+
+    -- Return potential points as needed
+    return potentialPoints
+end
 
 
 function RanckorsLeaderBoardTracker:ProcessLeaderboardData(campaignId, allianceIndex)
@@ -215,10 +224,11 @@ function RanckorsLeaderBoardTracker:ProcessLeaderboardData(campaignId, allianceI
     elseif not playerPosition then
         d("|cFF0000Error: Player not found on leaderboard.|r")
     else
-        d("|c00FF00Leader: " .. leaderName .. " (" .. leaderPoints .. " points)|r")
-        d("|c00FF00Player: " .. playerName .. " at rank " .. playerPosition .. " (" .. playerPoints .. " points)|r")
-        d("|c00FF00Point Difference: " .. (leaderPoints - playerPoints) .. "|r")
+        d("|c00FF00Leader: " .. leaderName .. " (" .. FormatNumberWithCommas(leaderPoints) .. " points)|r")
+        d("|c00FF00Player: " .. playerName .. " at rank " .. playerPosition .. " (" .. FormatNumberWithCommas(playerPoints) .. " points)|r")
+        d("|c00FF00Point Difference: " .. FormatNumberWithCommas(leaderPoints - playerPoints) .. "|r")
     end
 end
+    
 
 EVENT_MANAGER:RegisterForEvent("RanckorsLeaderBoardTracker", EVENT_ADD_ON_LOADED, OnAddOnLoaded)
