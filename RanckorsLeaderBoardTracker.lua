@@ -39,8 +39,8 @@ local Colors = {
 -- Customizable Line Colors
 -------------------------------
 local LineColors = {
-    HomeCampaign    = Colors.Grey,
-    Alliance        = Colors.Grey,
+    HomeCampaign    = Colors.White,
+    Alliance        = Colors.White,
     CurrentEmperor  = Colors.Green,
     EmperorReign    = Colors.Green,
     AldmeriPoints   = Colors.Aldmeri,
@@ -87,6 +87,21 @@ end
 -- Global variables for UI controls
 -------------------------------
 local uiWindow, uiContent
+
+-------------------------------
+-- Function to restore window position and size
+-------------------------------
+local function RestoreWindowPositionAndSize()
+    local savedWindow = RanckorsLeaderBoardTracker.savedVars.window
+    if not savedWindow then return end
+
+    uiWindow:ClearAnchors()
+    uiWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, savedWindow.x, savedWindow.y)
+    uiWindow:SetDimensions(600, 400)  -- Ensure it matches the new size
+    uiContent:SetFont("ZoFontGameBold|14")
+
+    d(Colors.Green .. "Window restored: x=" .. savedWindow.x .. ", y=" .. savedWindow.y .. Colors.Reset)
+end
 
 -------------------------------
 -- Function to create the UI window
@@ -144,21 +159,6 @@ local function UpdateUI(newText, clearBeforeUpdate)
     -- Use single line breaks instead of double padding
     local paddedText = newText:gsub("\n\n", "\n")
     uiContent:SetText(paddedText)
-end
-
--------------------------------
--- Function to restore window position and size
--------------------------------
-local function RestoreWindowPositionAndSize()
-    local savedWindow = RanckorsLeaderBoardTracker.savedVars.window
-    if not savedWindow then return end
-
-    uiWindow:ClearAnchors()
-    uiWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, savedWindow.x, savedWindow.y)
-    uiWindow:SetDimensions(600, 400)  -- Ensure it matches the new size
-    uiContent:SetFont("ZoFontGameBold|14")
-
-    d(Colors.Green .. "Window restored: x=" .. savedWindow.x .. ", y=" .. savedWindow.y .. Colors.Reset)
 end
 
 -------------------------------
@@ -338,7 +338,7 @@ end
 -- Fetch leaderboard data
 -------------------------------
 function RanckorsLeaderBoardTracker:FetchLeaderboardData()
-    d(Colors.Green .. "Fetching Leaderboard Data..." .. Colors.Reset)
+    d(Colors.Green .. "RanckorsLeaderBoardTracker: Fetching Leaderboard Data..." .. Colors.Reset)
 
     local homeCampaignId = GetAssignedCampaignId("player")
     if homeCampaignId == 0 then
