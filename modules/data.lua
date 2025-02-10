@@ -56,20 +56,39 @@ function RanckorsData.RefreshAllData()
     table.insert(uiBuffer, RanckorsStrings.Alliance .. allianceName)
 
     -- Get emperor details
-    local emperorAlliance, emperorName = GetCampaignEmperorInfo(campaignId)
-    if emperorName and emperorName ~= "" then
-        local reignDuration = RanckorsHelpers.FormatReignDuration(GetCampaignEmperorReignDuration(campaignId) or 0)
-        table.insert(uiBuffer, RanckorsStrings.CurrentEmperor .. emperorName .. " (" .. GetAllianceName(emperorAlliance) .. ")")
-        table.insert(uiBuffer, RanckorsStrings.EmperorReign .. reignDuration)
+local emperorAlliance, emperorName = GetCampaignEmperorInfo(campaignId)
+if emperorName and emperorName ~= "" then
+    local reignDuration = RanckorsHelpers.FormatReignDuration(GetCampaignEmperorReignDuration(campaignId) or 0)
+    
+    -- Determine the correct color for the alliance
+    local allianceColor
+    if emperorAlliance == ALLIANCE_ALDMERI_DOMINION then
+        allianceColor = RanckorsColors.Aldmeri
+    elseif emperorAlliance == ALLIANCE_EBONHEART_PACT then
+        allianceColor = RanckorsColors.Ebonheart
+    elseif emperorAlliance == ALLIANCE_DAGGERFALL_COVENANT then
+        allianceColor = RanckorsColors.Daggerfall
     else
-        table.insert(uiBuffer, RanckorsStrings.NoEmperor)
+        allianceColor = RanckorsColors.White  -- Fallback for unknown alliances
     end
+
+    -- Format the emperor line with colored alliance name
+    table.insert(
+        uiBuffer,
+        RanckorsStrings.CurrentEmperor .. emperorName .. " (" .. allianceColor .. GetAllianceName(emperorAlliance) .. "|r)"
+    )
+    table.insert(uiBuffer, RanckorsStrings.EmperorReign .. reignDuration)
+else
+    table.insert(uiBuffer, RanckorsStrings.NoEmperor)
+end
+
+    
 
     -- Get alliance scores and potential points
     local alliances = {
         { index = ALLIANCE_ALDMERI_DOMINION, name = "Aldmeri Dominion", color = RanckorsColors.Aldmeri },
         { index = ALLIANCE_EBONHEART_PACT, name = "Ebonheart Pact", color = RanckorsColors.Ebonheart },
-        { index = ALLIANCE_DAGGERFALL_COVENANT, name = "Daggerfall Covenant", color = RanckorsColors.LightBlue }
+        { index = ALLIANCE_DAGGERFALL_COVENANT, name = "Daggerfall Covenant", color = RanckorsColors.Daggerfall }
     }
 
     for _, alliance in ipairs(alliances) do
@@ -85,3 +104,4 @@ function RanckorsData.RefreshAllData()
     -- Return the final formatted UI content
     return table.concat(uiBuffer, "\n")
 end
+

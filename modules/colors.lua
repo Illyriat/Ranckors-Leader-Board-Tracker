@@ -1,13 +1,13 @@
 RanckorsColors = {
     Ebonheart  = "|cFF0000",   -- Red
     Aldmeri    = "|cFFFF00",   -- Yellow
-    Daggerfall = "|c0000FF",   -- Blue
+    Daggerfall = "|c87CEEB",   -- Sky Blue
+    Blue       = "|c0000FF",   -- Blue
     Green      = "|c00FF00",   -- Green
     White      = "|cFFFFFF",   -- White
     Grey       = "|c808080",   -- Grey
     Error      = "|cFF0000",   -- Red for errors
     Reset      = "|r",         -- Reset color
-    LightBlue  = "|c87CEEB",   -- Sky Blue
     DarkBlue   = "|c00008B",   -- Dark Blue
     LightGreen = "|c90EE90",   -- Light Green
     DarkGreen  = "|c006400",   -- Dark Green
