@@ -11,8 +11,14 @@
 Once you enter into Cyrodiil & get some Alliance Points you will score on the leaderboard.
 The Points difference between you and the player in 1st place in your alliance will be calculated. This will then tell you how many points you need to gain before being level with your Alliance Leader.
 
-As a whole this will track Your Home Campaign, Your Character Alliance, The Current Emperor and their Reigning time, the Alliance Scores for the current Campaign and their projected additional points the next server tick,
-The players Character (Name, Rank & Points), The characters Alliance Leader & Points, then the Points difference.
+As a whole this will track Your: 
+    * Home Campaign, 
+    * Your Character Alliance, 
+    * The Current Emperor and their Reigning time, 
+    * The Alliance Scores for the current Campaign and their projected additional points the next server tick,
+    * The players Character (Name, Rank & Points), 
+    * The characters Alliance Leader & Points, 
+    * The Points difference between your Alliance leader & your character.
 
 The UI Window can be relocated to your liking by drag & drop to the place you would prefer. This is a unique setting per character. 
 
@@ -26,3 +32,6 @@ The UI Window can be relocated to your liking by drag & drop to the place you wo
 > All rights reserved.
 
 > You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
+
+
+> Report & Submit your bugs and feature requests [Here](https://illyriat.com)
