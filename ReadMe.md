@@ -23,7 +23,7 @@ As a whole this will track Your:
 
 The UI Window can be relocated to your liking by drag & drop to the place you would prefer. This is a unique setting per character. 
 
-
+![LeaderBoard Tracker Image](./img/LeaderBoardTracker.JPG)
 
 
 
