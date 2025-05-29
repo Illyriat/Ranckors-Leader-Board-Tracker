@@ -5,7 +5,6 @@ function RanckorsEvents.OnAddOnLoaded(event, addonName)
 
     d("Ranckors Leaderboard Tracker loaded successfully!")
 
-    -- Example: Display leaderboard data after the addon is loaded
     local campaignId = GetAssignedCampaignId("player")
     local playerAlliance = GetUnitAlliance("player")
 
@@ -18,5 +17,4 @@ function RanckorsEvents.OnAddOnLoaded(event, addonName)
 end
 
 function RanckorsEvents.RegisterEvents()
-    -- Future events can be registered here if needed
 end

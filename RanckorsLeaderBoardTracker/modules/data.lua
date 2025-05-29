@@ -59,7 +59,7 @@ function RanckorsData.RefreshAllData()
 local emperorAlliance, emperorName = GetCampaignEmperorInfo(campaignId)
 if emperorName and emperorName ~= "" then
     local reignDuration = RanckorsHelpers.FormatReignDuration(GetCampaignEmperorReignDuration(campaignId) or 0)
-    
+
     -- Determine the correct color for the alliance
     local allianceColor
     if emperorAlliance == ALLIANCE_ALDMERI_DOMINION then
@@ -82,7 +82,7 @@ else
     table.insert(uiBuffer, RanckorsStrings.NoEmperor)
 end
 
-    
+
 
     -- Get alliance scores and potential points
     local alliances = {

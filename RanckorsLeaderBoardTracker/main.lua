@@ -1,4 +1,4 @@
-RanckorsLeaderBoardTracker = {}  -- Define the global table
+RanckorsLeaderBoardTracker = {} 
 d("Ranckors Leaderboard Tracker is initializing...")
 
 function RanckorsLeaderBoardTracker.InitializeUI()
