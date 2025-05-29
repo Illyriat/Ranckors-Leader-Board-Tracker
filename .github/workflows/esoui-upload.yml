@@ -23,5 +23,5 @@ jobs:
           api_key: ${{ secrets.ESOUI_ADDON_UPDATE }}
           addon_id: 4047
           version: v1.0.1
-          zip_file: QuickBank.zip
+          zip_file: RanckorsLeaderBoardTracker.zip
           changelog_file: CHANGELOG.txt
