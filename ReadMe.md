@@ -1,5 +1,8 @@
 # Ranckors Leaders Board Tracker
 
+![Version](https://img.shields.io/badge/version-v1.0.1-blue)  ![License: All Rights Reserved](https://img.shields.io/badge/license-All--Rights--Reserved-red)  ![Usage: No Redistribution](https://img.shields.io/badge/Usage-No%20Redistribution-red)
+
+
 ### View your Allance Score information for you HOME Campaign.
     * For this addon to work you first need to assign a home campaign for your character.
         ** Navigate to the Alliance War window scene
@@ -21,7 +24,7 @@ As a whole this will track Your:
 - The Points difference between your Alliance leader & your character
 
 
-The UI Window can be relocated to your liking by drag & drop to the place you would prefer. This is a unique setting per character. 
+The UI Window can be relocated to your liking by drag & drop to the place you would prefer. This is a unique setting per character.
 
 ![LeaderBoard Tracker Image](./img/LeaderBoardTracker.JPG)
 

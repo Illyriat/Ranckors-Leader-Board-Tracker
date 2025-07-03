@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - '.github/**'
+      - '*.md'
 
 jobs:
   upload:
